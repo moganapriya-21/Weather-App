@@ -14,7 +14,7 @@ inputFeild.addEventListener("keyup", e => {
     if (e.key == "Enter" && inputFeild.value != "") {
         requestApi(inputFeild.value);
     }
-});
+ });
 
 locationBtn.addEventListener("click", () => {
     if (navigator.geolocation) { // if browser supports geolocation api
