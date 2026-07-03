@@ -18,19 +18,28 @@ inputFeild.addEventListener("keyup", e => {
 
 locationBtn.addEventListener("click", () => {
     if (navigator.geolocation) { // if browser supports geolocation api
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        infoTxt.innerText = "Getting location...";
+        infoTxt.classList.add("pending");
+        locationBtn.disabled = true;
+        navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+             });
     } else {
         alert("Your browser does not support geolocation api");
     }
 });
 
 function onSuccess(position) {
+    locationBtn.disabled = false;
     const { latitude, longitude } = position.coords; // getting lat and lon of the user device from coords
     api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
     fetchData();
 }
 
 function onError(error) {
+     locationBtn.disabled = false;
     infoTxt.innerText = error.message;
     infoTxt.classList.add("error");
 }
