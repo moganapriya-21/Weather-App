@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
-    <!-- linkng boxicons for icon -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -13,11 +12,11 @@
         <header><i class="bx bx-left-arrow-alt"></i>Weather App</header>
         <section class="input-part">
             <p class="info-txt"></p>
-             <form id="searchForm">
-            <input type="text" placeholder="Enter city name" spellcheck="false" required>
+            <form id="searchForm">
+                <input type="text" placeholder="Enter city name" spellcheck="false" required>
             </form>
             <div class="separator"></div>
-            <button>Get Device Location</button>
+            <button type="button" id="locationBtn">Get Device Location</button>
         </section>
         <section class="weather-part">
             <img src="#" alt="Weather Icon">
@@ -52,6 +51,5 @@
         </section>
     </div>
 <script src="script.js"></script>
-    
 </body>
 </html>
