@@ -7,23 +7,12 @@ wIcon = wrapper.querySelector(".weather-part img"),
 arrowBack = wrapper.querySelector("header i");
 let api;
 const apiKey = "244b5bf96b69c2ddfb9a64568394cdc8";
-
 inputFeild.addEventListener("keyup", e => {
     // if user pressed enter btn and input value is not empty
     if (e.key == "Enter" && inputFeild.value != "") {
         requestApi(inputFeild.value);
     }
  });
-
-// NEW: form submit handler for mobile keyboard "Go/Search" button
-const searchForm = document.getElementById("searchForm");
-searchForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (inputFeild.value != "") {
-        requestApi(inputFeild.value);
-    }
-});
-
 locationBtn.addEventListener("click", () => {
     if (navigator.geolocation) { // if browser supports geolocation api
         infoTxt.innerText = "Getting location...";
@@ -33,7 +22,6 @@ locationBtn.addEventListener("click", () => {
             enableHighAccuracy: true,
             timeout: 10000,
             maximumAge: 0
-             });
     } else {
         alert("Your browser does not support geolocation api");
     }
@@ -56,6 +44,8 @@ function requestApi(city) {
 function fetchData() {
     infoTxt.innerText = "Getting weather details..";
     infoTxt.classList.add("pending");
+    // getting api response and returning it parsed into a js object, then
+    // calling the weatherDetails function with the api result as an argument
     fetch(api).then(response => response.json()).then(result => weatherDetails(result));
 }
 function weatherDetails(info) {
@@ -63,10 +53,12 @@ function weatherDetails(info) {
         infoTxt.classList.replace("pending", "error");
         infoTxt.innerText = `${inputFeild.value} is not a valid city name`;
     } else {
+        // lets get required properties' values from the info object
         const city = info.name;
         const country = info.sys.country;
         const { description, id } = info.weather[0];
         const { feels_like, humidity, temp } = info.main;
+        // using custom icon according to the id which the api returns us
         if (id == 800) {
             wIcon.src = "clear.svg";
         } else if (id >= 200 && id <= 232) {
@@ -80,6 +72,7 @@ function weatherDetails(info) {
         } else if ((id >= 300 && id <= 321) || (id >= 500 && id <= 531)) {
             wIcon.src = "rain.svg";
         }
+        // lets pass these values to particular html elements
         wrapper.querySelector(".temp .numb").innerText = Math.floor(temp);
         wrapper.querySelector(".weather").innerText = description;
         wrapper.querySelector(".location span").innerText = `${city}, ${country}`;
@@ -93,3 +86,4 @@ function weatherDetails(info) {
 arrowBack.addEventListener("click", () => {
     wrapper.classList.remove("active");
 });
+ipo correct aha
