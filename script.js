@@ -29,6 +29,7 @@ locationBtn.addEventListener("click", () => {
     } else {
         alert("Your browser does not support geolocation api");
     }
+
 });
 
 function onSuccess(position) {
